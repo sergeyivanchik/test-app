@@ -1,0 +1,36 @@
+{
+  "name": "test-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server --mode development --open --hot", 
+    "build": "webpack --mode production" 
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sergeyivanchik/test-app.git"
+  },
+  "author": "Sergey Ivanchik",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sergeyivanchik/test-app/issues"
+  },
+  "homepage": "https://github.com/sergeyivanchik/test-app#readme",
+  "devDependencies": {
+    "awesome-typescript-loader": "^5.2.1",
+    "html-webpack-plugin": "^3.2.0",
+    "typescript": "^3.5.3",
+    "webpack": "^4.39.1",
+    "webpack-cli": "^3.3.6",
+    "webpack-dev-server": "^3.7.2"
+  },
+  "dependencies": {
+    "@types/react": "^16.9.0",
+    "@types/react-dom": "^16.8.5",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "react-router-dom": "^5.0.1"
+  }
+}
