@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {BrowserRouter as Router, Route } from 'react-router-dom';
 
-import TestPage from './components/TestPage'
+import TestPage from './components/MainPage'
 
 class App extends React.Component {
   render() {
