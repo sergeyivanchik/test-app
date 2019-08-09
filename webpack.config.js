@@ -16,7 +16,20 @@ module.exports = {
       {
         test: /\.tsx?$/,
         loader: 'awesome-typescript-loader'
-      }
+      },
+      {
+        test: /\.scss$/,
+        loader: 'style-loader!css-loader!sass-loader',
+      },
+      {
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        use: {
+          loader: "url-loader",
+          options: {
+            limit: 25000,
+          },
+        },
+      },
     ]
   },
   plugins: [
