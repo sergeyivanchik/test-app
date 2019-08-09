@@ -19,7 +19,18 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        loader: 'style-loader!css-loader!sass-loader',
+        use: [{
+          loader: "style-loader"
+        }, 
+        {
+          loader: "css-loader"
+        }, 
+        {
+          loader: "sass-loader",
+          options: {
+              includePaths: ["absolute/path/a", "absolute/path/b"]
+          }
+        }]
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
