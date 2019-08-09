@@ -1,0 +1,21 @@
+.list-note {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 500px;
+
+  &__button {
+    display: flex;
+    align-self: flex-end;
+    margin-top: 5px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &__tags{
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
