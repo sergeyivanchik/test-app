@@ -8,7 +8,7 @@ export function addTag(note: String, tagFromNote: Boolean): any[] {
       }
     })
   } else {
-      tags.add('#' + note.split(' ').join('_'))
+      tags.add('#' + note.split('#').join('').split(' ').join('_'))
   }
   return Array.from(tags);
 } 

@@ -3,74 +3,73 @@ import * as React from "react";
 import Note from './Note/Note';
 import Tag from './Tag/Tag'
 import './MainPage.scss';
+import { addTag } from '../utils'
 
-interface Props {}
-interface State {
-    noteText: String,
-    arrDiv: Array<any>,
-    arrTag: Array<any>
+interface IProps {}
+interface IState {
+    note: String,
+    notes: string[],
+    tags: string[]
 }
 
-class MainPage extends React.Component<Props, State> {
-    state: State = { noteText: '', arrDiv: [], arrTag: [] }
+class MainPage extends React.Component<IProps, IState> {
+    state = { 
+        note: '',
+        notes: [],
+        tags: []
+    }
 
     handlerInputChange = event => 
-        this.setState({noteText: event.target.value})
+        this.setState({note: event.target.value})
 
-    addDiv =  event => {
-        const arrayDiv: Array<String> = this.state.arrDiv;
-
-        if(this.state.noteText) {
-            arrayDiv.push(this.state.noteText);
-            this.setState({arrDiv: arrayDiv});
-            const arrayStr: Array<String> = this.state.noteText.split(' ');
-
-            arrayStr.map(element => {
-                let array : Array<String> = this.state.arrTag;
-                if(element[0]==='#') {
-                    array.push(element);
-                    const set = new Set(array);
-                    array = Array.from(set);
-                    this.setState({arrTag: array})
-                }
-            })
+    createNote =  () => {
+        if(this.state.note) {
+            this.setState({notes: [...this.state.notes, this.state.note]});
+            this.setState({tags: Array.from(new Set([...this.state.tags, ...addTag(this.state.note, true)]))})
         } else { alert("Empty data!!!"); }
     }
 
-    remove = index => {
-        const array: Array<String> = this.state.arrDiv;
-        array.splice(index,1);
-        this.setState({arrDiv: array})
+    createTag = () => {
+        if(this.state.note) {
+            this.setState({tags: Array.from(new Set([...this.state.tags, ...addTag(this.state.note, false)]))})
+        } else { alert("Empty data!!!"); }
     }
 
-    change = index => {
-        alert(this.state.arrDiv[index])
+    removeNote = index => {
+        this.state.notes.splice(index,1);
+        this.setState({notes: this.state.notes})
     }
 
-    view = index => {
-        alert(this.state.arrDiv[index])
+    changeNote = index => {
+        alert(this.state.notes[index])
+    }
+
+    viewNote = index => {
+        alert(this.state.notes[index])
     }
 
     render() {
         return (
             <div className="list-note">
-                <input type="text" onChange={this.handlerInputChange} className="list-note__text"/>
-
-                <span className="list-note__button" onClick={this.addDiv}> Add note </span>
+                <input type="text" onChange={this.handlerInputChange} className="list-note__note-text"/>
+                <div className="list-note__buttons">
+                    <span className="list-note__add-tag" onClick={this.createTag}> Add tag </span>
+                    <span className="list-note__add-note" onClick={this.createNote}> Add note </span>
+                </div>
 
                 <div className="list-note__tags">
-                    {this.state.arrTag.map((element, index) => { return <Tag text={element} key={index+element}/> })}
+                    {this.state.tags.map((element, index) => { return <Tag text={element} key={index+element}/> })}
                 </div>
 
                 <div className="list-note__notes">
-                    {this.state.arrDiv.map((element, index) =>
+                    {this.state.notes.map((element, index) =>
                         <Note
-                            key={index+element}
-                            text={element}
+                            key={index + element}
+                            note={element}
                             noteIndex={index}
-                            remove={() => this.remove(index)}
-                            view={() => this.view(index)}
-                            change={() => this.change(index)}
+                            removeNote={() => this.removeNote(index)}
+                            viewNote={() => this.viewNote(index)}
+                            changeNote={() => this.changeNote(index)}
                         />
                     )}
                 </div>    
