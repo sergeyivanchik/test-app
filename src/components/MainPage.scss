@@ -4,10 +4,23 @@
   flex-direction: column;
   padding: 0 500px;
 
-  &__button {
+  &__buttons {
     display: flex;
     align-self: flex-end;
     margin-top: 5px;
+  }
+
+  &__add-note {
+    display: flex;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &__add-tag {
+    display: flex;
+    margin-right: 10px;
 
     &:hover {
       cursor: pointer;
