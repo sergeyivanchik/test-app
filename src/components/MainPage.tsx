@@ -20,18 +20,24 @@ class MainPage extends React.Component<IProps, IState> {
     }
 
     handlerInputChange = event => 
-        this.setState({note: event.target.value})
+        this.setState({
+            note: event.target.value
+        })
 
     createNote =  () => {
-        if(this.state.note) {
-            this.setState({notes: [...this.state.notes, this.state.note]});
-            this.setState({tags: Array.from(new Set([...this.state.tags, ...addTag(this.state.note, true)]))})
+        if (this.state.note) {
+            this.setState({
+                notes: [...this.state.notes, this.state.note],
+                tags: Array.from(new Set([...this.state.tags, ...addTag(this.state.note, true)]))
+            });
         } else { alert("Empty data!!!"); }
     }
 
     createTag = () => {
-        if(this.state.note) {
-            this.setState({tags: Array.from(new Set([...this.state.tags, ...addTag(this.state.note, false)]))})
+        if (this.state.note) {
+            this.setState({
+                tags: Array.from(new Set([...this.state.tags, ...addTag(this.state.note, false)]))
+            })
         } else { alert("Empty data!!!"); }
     }
 
