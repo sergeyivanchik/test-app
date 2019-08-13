@@ -64,7 +64,9 @@ class MainPage extends React.Component<IProps, IState> {
                 </div>
 
                 <div className="list-note__tags">
-                    {this.state.tags.map((element, index) => { return <Tag text={element} key={index+element}/> })}
+                    {this.state.tags.map((element, index) => { 
+                        return <Tag text={element} key={index+element}/> 
+                    })}
                 </div>
 
                 <div className="list-note__notes">
@@ -76,6 +78,7 @@ class MainPage extends React.Component<IProps, IState> {
                             removeNote={() => this.removeNote(index)}
                             viewNote={() => this.viewNote(index)}
                             changeNote={() => this.changeNote(index)}
+                            tags={this.state.tags}
                         />
                     )}
                 </div>    

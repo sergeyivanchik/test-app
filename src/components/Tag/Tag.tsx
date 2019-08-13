@@ -3,10 +3,11 @@ import * as React from "react";
 import './Tag.scss';
 
 interface Props {
-  text: String,
+  text: String
 }
 
 class Tag extends React.Component<Props> {
+
   render() {
       return (
           <div className="tag">
