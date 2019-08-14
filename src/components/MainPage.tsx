@@ -9,14 +9,16 @@ interface IProps {}
 interface IState {
     note: String,
     notes: string[],
-    tags: string[]
+    tags: string[],
+    noteForEdit: Number
 }
 
 class MainPage extends React.Component<IProps, IState> {
     state = { 
         note: '',
         notes: [],
-        tags: []
+        tags: [],
+        noteForEdit: -1
     }
 
     handlerInputChange = event => 
@@ -51,12 +53,22 @@ class MainPage extends React.Component<IProps, IState> {
         this.setState({notes: this.state.notes})
     }
 
-    changeNote = index => {
-        alert(this.state.notes[index])
+    editNote = index => {
+        this.setState({
+            noteForEdit: index
+        })
     }
 
     viewNote = index => {
         alert(this.state.notes[index])
+    }
+
+    saveChangesToNote = ({index, text}) => {
+        this.state.notes[index] = text;
+        this.setState({
+            notes: this.state.notes,
+            noteForEdit: -1
+        })
     }
 
     render() {
@@ -78,8 +90,12 @@ class MainPage extends React.Component<IProps, IState> {
                         <Note
                             key={index + element}
                             note={element}
+                            noteIndex={index}
+                            noteForEdit={this.state.noteForEdit}
                             removeNote={() => this.removeNote(index)}
                             viewNote={() => this.viewNote(index)}
+                            editNote={() => this.editNote(index)}
+                            saveChangesToNote={this.saveChangesToNote}
                             changeNote={() => this.changeNote(index)}
                             tags={this.state.tags}
                         />

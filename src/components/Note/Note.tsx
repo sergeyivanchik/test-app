@@ -7,15 +7,40 @@ interface Props {
   note: String,
   removeNote: any,
   viewNote: any,
+  editNote: any,
+  noteForEdit: Number,
+  saveChangesToNote: any
   changeNote: any,
   tags: string[]
+
 }
 
-class Note extends React.Component<Props> {
+interface State {
+  editedNote: String
+}
+
+class Note extends React.Component<Props, State> {
+  state = {
+    editedNote: ''
+  }
+
+  editingNote = event => {
+    this.setState({
+      editedNote: event.target.value
+    })
+  }
+
+  saveNote = () => {
+    this.props.saveChangesToNote({
+      index: this.props.noteIndex,
+      text: this.state.editedNote
+    });
+  }
+
   render() {
-    const { note, removeNote, viewNote, changeNote, tags } = this.props
-    return (
-        <div className="note">
+    const { noteForEdit, noteIndex, viewNote, note, removeNote, editNote, changeNote, tags } = this.props;
+    return (noteForEdit !== noteIndex 
+      ? <div className="note">
           <div className="note__text" onClick={viewNote}>
             {
               note.split(' ').map(element => {
@@ -28,9 +53,15 @@ class Note extends React.Component<Props> {
           </div>
           <div className="note__buttons">
             <span className='note__remove' onClick={removeNote}> R </span>
-            <span className='note__change' onClick={changeNote}> C </span>
+            <span className='note__change' onClick={editNote} > C </span>
           </div>
         </div>
+      : <div className="note">
+          <textarea onChange={this.editingNote}>{note}</textarea>
+
+          <span className='note__save' onClick={this.saveNote} > S </span>
+        </div>
+
     )
   }
 }
