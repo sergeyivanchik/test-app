@@ -1,8 +1,8 @@
 .note {
   display: flex;
   margin: 15px 0;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.904);
-  height: 40px;
+  background-color: #12122e;
+  border-radius: 8px;
   
   &__tag {
     color: rgb(9, 42, 226);
@@ -13,10 +13,13 @@
   }
 
   &__text {
-    overflow: hidden;
-    text-overflow: ellipsis;
+    display: flex;
+    word-break: break-word;
     width: 85%;
+    min-height: 35px;
     padding: 10px;
+    line-height: 1.2;
+    align-items: center;
   
     &:hover {
       cursor: pointer;

@@ -1,12 +1,15 @@
 .tag {
   display: flex;
   border-radius: 2px;
-  background-color: white;
-  margin-right: 5px;
+  background-color: transparent;
+  margin: 5px;
+  color: #8a8b93;
+  align-items: center;
 
   &_selected {
-    background-color: rgba(189, 201, 25, 0.342);
-    
+    background-color: #555bffc5;
+  }
+
   &:hover {
     cursor: pointer;
   }
