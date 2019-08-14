@@ -9,14 +9,16 @@ interface IProps {}
 interface IState {
     note: String,
     notes: string[],
-    tags: string[]
+    tags: string[],
+    noteForEdit: Number
 }
 
 class MainPage extends React.Component<IProps, IState> {
     state = { 
         note: '',
         notes: [],
-        tags: []
+        tags: [],
+        noteForEdit: -1
     }
 
     handlerInputChange = event => 
@@ -41,17 +43,27 @@ class MainPage extends React.Component<IProps, IState> {
         } else { alert("Empty data!!!"); }
     }
 
-    removeNote = index => {
+    removeNote = index=> {
         this.state.notes.splice(index,1);
         this.setState({notes: this.state.notes})
     }
 
-    changeNote = index => {
-        alert(this.state.notes[index])
+    editNote = index => {
+        this.setState({
+            noteForEdit: index
+        })
     }
 
     viewNote = index => {
         alert(this.state.notes[index])
+    }
+
+    saveChangesToNote = ({index, text}) => {
+        this.state.notes[index] = text;
+        this.setState({
+            notes: this.state.notes,
+            noteForEdit: -1
+        })
     }
 
     render() {
@@ -73,9 +85,11 @@ class MainPage extends React.Component<IProps, IState> {
                             key={index + element}
                             note={element}
                             noteIndex={index}
+                            noteForEdit={this.state.noteForEdit}
                             removeNote={() => this.removeNote(index)}
                             viewNote={() => this.viewNote(index)}
-                            changeNote={() => this.changeNote(index)}
+                            editNote={() => this.editNote(index)}
+                            saveChangesToNote={this.saveChangesToNote}
                         />
                     )}
                 </div>    
