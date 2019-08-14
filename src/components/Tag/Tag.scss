@@ -4,6 +4,9 @@
   background-color: white;
   margin-right: 5px;
 
+  &_selected {
+    background-color: rgba(189, 201, 25, 0.342);
+    
   &:hover {
     cursor: pointer;
   }

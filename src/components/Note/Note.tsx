@@ -7,6 +7,8 @@ interface Props {
   note: String,
   removeNote: any,
   viewNote: any,
+  changeNote: any,
+  isSelectTag: Boolean
   editNote: any,
   noteForEdit: Number,
   saveChangesToNote: any

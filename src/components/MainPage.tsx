@@ -10,6 +10,8 @@ interface IState {
     note: String,
     notes: string[],
     tags: string[],
+    selectedTag: String,
+    isSelectTag: Boolean
     noteForEdit: Number
 }
 
@@ -18,8 +20,16 @@ class MainPage extends React.Component<IProps, IState> {
         note: '',
         notes: [],
         tags: [],
+        selectedTag: '',
+        isSelectTag: false
         noteForEdit: -1
     }
+
+    selectTag = (tag: String) => {
+        this.setState({
+            selectedTag: tag,
+            isSelectTag: !this.state.isSelectTag
+        })}
 
     handlerInputChange = event => 
         this.setState({
@@ -30,7 +40,9 @@ class MainPage extends React.Component<IProps, IState> {
         if (this.state.note) {
             this.setState({
                 notes: [...this.state.notes, this.state.note],
-                tags: Array.from(new Set([...this.state.tags, ...addTag(this.state.note, true)]))
+                tags: Array.from(new Set([...this.state.tags, ...addTag(this.state.note, true)])),
+                isSelectTag: false,
+                selectedTag: ''
             });
         } else { alert("Empty data!!!"); }
     }
@@ -63,6 +75,25 @@ class MainPage extends React.Component<IProps, IState> {
         alert(this.state.notes[index])
     }
 
+    viewAllNotes = () => {
+        this.setState({
+            isSelectTag: false,
+            selectedTag: ''
+        })
+    }
+
+    filterNotesByTag = () => {
+        const { notes, selectedTag, isSelectTag } = this.state;
+
+        if (isSelectTag) {
+            return notes.filter(words => 
+                words.includes(selectedTag) || words.includes(selectedTag.slice(1)) ? true : false
+            );
+        } else {
+            return notes;
+        }
+    } 
+
     saveChangesToNote = ({index, text}) => {
         this.state.notes[index] = text;
         this.setState({
@@ -72,6 +103,8 @@ class MainPage extends React.Component<IProps, IState> {
     }
 
     render() {
+        const { tags, selectedTag } = this.state;
+
         return (
             <div className="list-note">
                 <input type="text" onChange={this.handlerInputChange} className="list-note__note-text"/>
@@ -80,27 +113,43 @@ class MainPage extends React.Component<IProps, IState> {
                     <span className="list-note__add-note" onClick={this.createNote}> Add note </span>
                 </div>
 
-                <div className="list-note__tags">
-                    {this.state.tags.map((element, index) => { 
-                        return <Tag text={element} key={index+element} removeTag={() => this.removeTag(index)}/> })}
-                </div>
-
+                {tags.length 
+                    ? <div className="list-note__tags">
+                        <span className="list-note__all-notes" onClick={this.viewAllNotes}>All notes</span>
+                            {tags.map((element, index) => { 
+                                return <Tag 
+                                            text={element}
+                                            key={index+element}
+                                            selectTag={this.selectTag}
+                                            selectedTag={selectedTag}
+                                            isSelectTag={this.state.isSelectTag}
+                                            removeTag={() => this.removeTag(index)}
+                                        /> 
+                            })}
+                      </div>
+                    : '' 
+                }
+                
                 <div className="list-note__notes">
-                    {this.state.notes.map((element, index) =>
-                        <Note
-                            key={index + element}
-                            note={element}
-                            noteIndex={index}
-                            noteForEdit={this.state.noteForEdit}
-                            removeNote={() => this.removeNote(index)}
-                            viewNote={() => this.viewNote(index)}
-                            editNote={() => this.editNote(index)}
-                            saveChangesToNote={this.saveChangesToNote}
-                            changeNote={() => this.changeNote(index)}
-                            tags={this.state.tags}
-                        />
-                    )}
-                </div>    
+                    {this.filterNotesByTag()
+                            .map((element, index) =>
+                                <Note
+                                    key={index + element}
+                                    note={element}
+                                    noteIndex={index}
+                                    removeNote={() => this.removeNote(index)}
+                                    viewNote={() => this.viewNote(index)}
+                                    changeNote={() => this.changeNote(index)}
+                                    isSelectTag={this.state.isSelectTag}
+                                    noteForEdit={this.state.noteForEdit}
+                                    editNote={() => this.editNote(index)}
+                                    saveChangesToNote={this.saveChangesToNote}
+                                     tags={this.state.tags}
+                                />
+                            )
+
+                    }
+                </div>
             </div>
         )
     }
