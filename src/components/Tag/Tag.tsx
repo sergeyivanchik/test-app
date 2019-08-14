@@ -6,7 +6,8 @@ interface Props {
   text: String,
   selectTag: any,
   selectedTag: String,
-  isSelectTag: Boolean
+  isSelectTag: Boolean,
+  removeTag: any
 }
 
 interface State {
@@ -35,7 +36,7 @@ class Tag extends React.Component<Props, State> {
     return (
       <div className={`tag ${((selectedTag === tag) && (this.props.isSelectTag)) ? 'tag_selected' : ''}`} onClick={this.selectTag}>
         {text}
-        {/* <span className="tag__button">R</span> */}
+        <span className="tag__remove" onClick={this.props.removeTag}>R</span>
       </div>
     )
   }

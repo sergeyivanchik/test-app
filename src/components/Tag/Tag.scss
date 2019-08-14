@@ -6,5 +6,12 @@
 
   &_selected {
     background-color: rgba(189, 201, 25, 0.342);
+    
+  &:hover {
+    cursor: pointer;
+  }
+
+  &__remove {
+    margin-left: 5px;
   }
 }
