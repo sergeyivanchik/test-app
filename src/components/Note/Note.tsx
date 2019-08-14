@@ -8,7 +8,8 @@ interface Props {
   noteIndex: Number,
   removeNote: any,
   viewNote: any,
-  changeNote: any
+  changeNote: any,
+  isSelectTag: Boolean
 }
 
 class Note extends React.Component<Props> {

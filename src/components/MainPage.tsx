@@ -26,7 +26,7 @@ class MainPage extends React.Component<IProps, IState> {
     selectTag = (tag: String) => {
         this.setState({
             selectedTag: tag,
-            isSelectTag: true
+            isSelectTag: !this.state.isSelectTag
         })}
 
     handlerInputChange = event => 
@@ -77,8 +77,8 @@ class MainPage extends React.Component<IProps, IState> {
         const { notes, selectedTag, isSelectTag } = this.state;
 
         if (isSelectTag) {
-            return notes.filter(word => 
-                word.includes(selectedTag)
+            return notes.filter(words => 
+                words.includes(selectedTag) || words.includes(selectedTag.slice(1)) ? true : false
             );
         } else {
             return notes;
@@ -95,6 +95,7 @@ class MainPage extends React.Component<IProps, IState> {
                     <span className="list-note__add-tag" onClick={this.createTag}> Add tag </span>
                     <span className="list-note__add-note" onClick={this.createNote}> Add note </span>
                 </div>
+
                 {tags.length 
                     ? <div className="list-note__tags">
                         <span className="list-note__all-notes" onClick={this.viewAllNotes}>All notes</span>
@@ -104,13 +105,13 @@ class MainPage extends React.Component<IProps, IState> {
                                             key={index+element}
                                             selectTag={this.selectTag}
                                             selectedTag={selectedTag}
+                                            isSelectTag={this.state.isSelectTag}
                                         /> 
                             })}
                       </div>
                     : '' 
                 }
                 
-
                 <div className="list-note__notes">
                     {this.filterNotesByTag()
                             .map((element, index) =>
@@ -121,6 +122,7 @@ class MainPage extends React.Component<IProps, IState> {
                                     removeNote={() => this.removeNote(index)}
                                     viewNote={() => this.viewNote(index)}
                                     changeNote={() => this.changeNote(index)}
+                                    isSelectTag={this.state.isSelectTag}
                                 />
                             )
 

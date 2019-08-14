@@ -5,7 +5,8 @@ import './Tag.scss';
 interface Props {
   text: String,
   selectTag: any,
-  selectedTag: String
+  selectedTag: String,
+  isSelectTag: Boolean
 }
 
 interface State {
@@ -14,14 +15,14 @@ interface State {
 
 class Tag extends React.Component<Props, State> {
   state = {
-    tag: '_'
+    tag: ''
   }
 
   selectTag = event => {
     this.setState({
-      tag: event.target.innerHTML.slice(1)
+      tag:event.target.innerHTML
     });
-    this.props.selectTag(event.target.innerHTML.slice(1));
+    this.props.selectTag(event.target.innerHTML);
   }
 
   selectedTag = (event) => {
@@ -32,7 +33,7 @@ class Tag extends React.Component<Props, State> {
     const { text, selectedTag } = this.props;
     const { tag } = this.state;
     return (
-      <div className={`tag ${selectedTag === tag ? 'tag_selected' : ''}`} onClick={this.selectTag}>
+      <div className={`tag ${((selectedTag === tag) && (this.props.isSelectTag)) ? 'tag_selected' : ''}`} onClick={this.selectTag}>
         {text}
         {/* <span className="tag__button">R</span> */}
       </div>
