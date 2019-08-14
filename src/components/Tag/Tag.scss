@@ -3,4 +3,12 @@
   border-radius: 2px;
   background-color: white;
   margin-right: 5px;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &__remove {
+    margin-left: 5px;
+  }
 }
