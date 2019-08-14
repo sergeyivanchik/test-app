@@ -74,7 +74,6 @@ class MainPage extends React.Component<IProps, IState> {
                         <Note
                             key={index + element}
                             note={element}
-                            noteIndex={index}
                             removeNote={() => this.removeNote(index)}
                             viewNote={() => this.viewNote(index)}
                             changeNote={() => this.changeNote(index)}

@@ -8,6 +8,10 @@
     color: rgb(9, 42, 226);
   }
 
+  &__possible-tag {
+    color: rgba(212, 9, 151, 0.87);
+  }
+
   &__text {
     overflow: hidden;
     text-overflow: ellipsis;
