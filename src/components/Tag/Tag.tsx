@@ -3,18 +3,20 @@ import * as React from "react";
 import './Tag.scss';
 
 interface Props {
-  text: String
+  text: String,
+  removeTag: any
 }
 
 class Tag extends React.Component<Props> {
 
   render() {
-      return (
-          <div className="tag">
-            {this.props.text}
-            <span className="tag__button">R</span>
-          </div>
-      )
+    const { text } = this.props;
+    return (
+      <div className="tag">
+        {text}
+        <span className="tag__remove" onClick={this.props.removeTag}>R</span>
+      </div>
+    )
   }
 }
 
