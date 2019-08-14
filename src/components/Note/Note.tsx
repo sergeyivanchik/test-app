@@ -5,12 +5,14 @@ import './Note.scss'
 
 interface Props {
   note: String,
-  noteIndex: Number,
   removeNote: any,
   viewNote: any,
   editNote: any,
   noteForEdit: Number,
   saveChangesToNote: any
+  changeNote: any,
+  tags: string[]
+
 }
 
 interface State {
@@ -36,11 +38,18 @@ class Note extends React.Component<Props, State> {
   }
 
   render() {
-    const { noteForEdit,noteIndex, viewNote, note, removeNote, editNote } = this.props;
+    const { noteForEdit, noteIndex, viewNote, note, removeNote, editNote, changeNote, tags } = this.props;
     return (noteForEdit !== noteIndex 
       ? <div className="note">
           <div className="note__text" onClick={viewNote}>
-            {note}
+            {
+              note.split(' ').map(element => {
+                if (tags.find(tag => tag === element)) {
+                  return <span className="note__tag">{element + ' '}</span>
+                } else  
+                    return element + ' '
+              })
+            }
           </div>
           <div className="note__buttons">
             <span className='note__remove' onClick={removeNote}> R </span>
@@ -52,6 +61,7 @@ class Note extends React.Component<Props, State> {
 
           <span className='note__save' onClick={this.saveNote} > S </span>
         </div>
+
     )
   }
 }

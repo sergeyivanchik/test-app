@@ -43,7 +43,12 @@ class MainPage extends React.Component<IProps, IState> {
         } else { alert("Empty data!!!"); }
     }
 
-    removeNote = index=> {
+    removeTag = index => {
+        this.state.tags.splice(index,1);
+        this.setState({tags: this.state.tags})
+    }
+
+    removeNote = index => {
         this.state.notes.splice(index,1);
         this.setState({notes: this.state.notes})
     }
@@ -76,7 +81,8 @@ class MainPage extends React.Component<IProps, IState> {
                 </div>
 
                 <div className="list-note__tags">
-                    {this.state.tags.map((element, index) => { return <Tag text={element} key={index+element}/> })}
+                    {this.state.tags.map((element, index) => { 
+                        return <Tag text={element} key={index+element} removeTag={() => this.removeTag(index)}/> })}
                 </div>
 
                 <div className="list-note__notes">
@@ -90,6 +96,8 @@ class MainPage extends React.Component<IProps, IState> {
                             viewNote={() => this.viewNote(index)}
                             editNote={() => this.editNote(index)}
                             saveChangesToNote={this.saveChangesToNote}
+                            changeNote={() => this.changeNote(index)}
+                            tags={this.state.tags}
                         />
                     )}
                 </div>    
