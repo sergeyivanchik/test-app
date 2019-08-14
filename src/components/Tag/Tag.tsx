@@ -8,6 +8,7 @@ interface Props {
 }
 
 class Tag extends React.Component<Props> {
+
   render() {
     const { text } = this.props;
     return (
